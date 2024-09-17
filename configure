@@ -39,8 +39,9 @@ if ($INSTALL_PKG_DEPS) {
   my @rxxr2Packages_ubuntu = ("ocaml");
   my @wustholzPackages_ubuntu = ("default-jdk");
   my @shenPackages_ubuntu = ("maven");
-  my @dynamicAnalysisPackages_ubuntu = ("nodejs", "php-cli", "ruby", "cargo", "golang-go", "python3-bs4");
-  my @requiredPackages_ubuntu = (@miscPackages_ubuntu, @rxxr2Packages_ubuntu, @wustholzPackages_ubuntu, @shenPackages_ubuntu, @dynamicAnalysisPackages_ubuntu);
+  # my @dynamicAnalysisPackages_ubuntu = ("nodejs", "php-cli", "ruby", "cargo", "golang-go", "python3-bs4");
+  # my @requiredPackages_ubuntu = (@miscPackages_ubuntu, @rxxr2Packages_ubuntu, @wustholzPackages_ubuntu, @shenPackages_ubuntu, @dynamicAnalysisPackages_ubuntu);
+  my @requiredPackages_ubuntu = (@miscPackages_ubuntu, @rxxr2Packages_ubuntu, @wustholzPackages_ubuntu, @shenPackages_ubuntu);
   
   &log("Installing dependencies");
   if ($> == 0) {
@@ -70,17 +71,17 @@ else {
 &configureDetectors();
 
 # Validators
-&log("Configuring validators");
-&configureValidators();
+# &log("Configuring validators");
+# &configureValidators();
 
 # npm install my node modules
-&log("Configuring node modules");
-my @nodeModuleDirs = map { "$ENV{VULN_REGEX_DETECTOR_ROOT}/$_" } ("src/extract/src/javascript/", "src/cache/client/", "src/cache/server/");
-for my $dir (@nodeModuleDirs) {
-  chdir $dir or die "Error, chdir failed: $!\n";
-  &chkcmd("npm install");
-  chdir $ENV{VULN_REGEX_DETECTOR_ROOT} or die "Error, chdir failed: $!\n";
-}
+# &log("Configuring node modules");
+# my @nodeModuleDirs = map { "$ENV{VULN_REGEX_DETECTOR_ROOT}/$_" } ("src/extract/src/javascript/", "src/cache/client/", "src/cache/server/");
+# for my $dir (@nodeModuleDirs) {
+#   chdir $dir or die "Error, chdir failed: $!\n";
+#   &chkcmd("npm install");
+#   chdir $ENV{VULN_REGEX_DETECTOR_ROOT} or die "Error, chdir failed: $!\n";
+# }
 
 &log("Configuration complete");
 exit 0;
