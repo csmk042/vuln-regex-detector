@@ -43,7 +43,12 @@ if ($INSTALL_PKG_DEPS) {
   my @requiredPackages_ubuntu = (@miscPackages_ubuntu, @rxxr2Packages_ubuntu, @wustholzPackages_ubuntu, @shenPackages_ubuntu, @dynamicAnalysisPackages_ubuntu);
   
   &log("Installing dependencies");
-  &chkcmd("sudo apt-get install -y @requiredPackages_ubuntu");
+  if ($> == 0) {
+    &log("Running as root");
+    &chkcmd("apt-get install -y @requiredPackages_ubuntu");
+  } else {
+    &chkcmd("sudo apt-get install -y @requiredPackages_ubuntu");
+  }
 }
 else {
   # I know rxxr2 works on ocaml 4.02.3 since that is the Ubuntu 16 version.
